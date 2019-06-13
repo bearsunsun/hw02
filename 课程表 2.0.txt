@@ -1,0 +1,82 @@
+<html>
+<head>
+  <style>
+  td {
+    height: 10em;
+    width: 10em;
+    text-align: center;
+    box-shadow: 3px 3px 2px 2px #e3e5e5;
+    font-size: 110%;
+    font-style: inherit;
+  }
+
+  td:hover {
+    position: relative;
+    top:-2px;
+    left: 2px;
+
+  }
+
+
+  .detail {
+    display: none;
+  }
+
+  .detail.open {
+    display: grid;
+    position: absolute;
+    height: 10em;
+    width: 10em;
+    background-color: antiquewhite;
+  }
+
+  </style>
+</head>
+<body>
+  <table id="grid">
+  </table>
+
+  <script>
+    let course=[" ","周一","周二","周三","周四","周五","第一节课","web应用开发技术","西方文化简史","管理信息系统","数据库原理/运营管理"," ","第二节课",
+    "毛概","管理科学基础","毛概","管理科学基础","运营管理","第三节课","管理信息系统"," ","会计","体育","毛概","第四节课","电子商务","数据库原理"," ",
+    "会计"," "];
+    let list=[" "," "," "," "," "," ","8:20~10:00","教室：第一公教C411    老师：吕成功","教室：第一公教C311    老师：张金柱","教室：第一公教C105    老师：刘烨",
+    "（单周数据库原理）教室：第一公教B405     老师：吴君    （双周运营管理）教室：第一公教B405    老师：刘亮"," ","10:20~12:00","教室：第一公教A120     老师：顾洪英",
+    "教室：第一公教C411    老师：赵方方","教室：第一公教A120     老师：顾洪英","教室：第一公教C411    老师：赵方方","教室：第一公教B405    老师：刘亮",
+    "14:00~15:40","教室：第一公教C105    老师：刘烨"," ","教室：第一公教B101    老师：刘晓晖","教室：体育馆    老师：薛松","教室：第一公教A120     老师：顾洪英",
+    "16:00~17:40","教室：第一公教B303    老师：张亮","教室：第一公教B405     老师：吴君"," ","教室：第一公教B101    老师：刘晓晖"," "];
+    let tblEl = document.getElementById('grid');
+    for (let i = 0; i < 5; i++) {
+      let trEl = document.createElement('tr');
+      for (let j = 0; j < 6; j++) {
+        let tdEl = document.createElement('td');
+        let detailDivEl = document.createElement('div');
+        detailDivEl.className = 'detail';
+        detailDivEl.innerHTML=list[i*6+j];
+        detailDivEl.onmouseout =function(event) {
+          let names = detailDivEl.className.split(' ');
+          names = names.filter((x) => x != 'open')
+          detailDivEl.className = names.join(' ');
+        }
+        tdEl.append(detailDivEl);
+        tdEl.innerHTML = course[i*6+ j] ;
+        tdEl.onclick = function(event) {
+          let names = detailDivEl.className.split(' ');
+
+          if (names.indexOf('open') >= 0) {
+            names = names.filter((x) => x != 'open')
+          } else {
+            names.push('open');
+          }
+          detailDivEl.className = names.join(' ');
+        };
+        tdEl.append(detailDivEl);
+        trEl.append(tdEl);
+      }
+      tblEl.append(trEl);
+      }
+</script>
+
+
+</body>
+</html>
